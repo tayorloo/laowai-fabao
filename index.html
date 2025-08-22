@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>老外法宝 - 英文文章智能解析工具</title>
+    
+    <!-- 微信分享优化 -->
+    <meta property="og:title" content="老外法宝 - 英文文章智能解析">
+    <meta property="og:description" content="一键获得翻译、词汇解析、句型分析，让英语学习更简单">
+    <meta property="og:type" content="website">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.95;
+        }
+
+        .main-content {
+            padding: 20px 15px;
+        }
+
+        .demo-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 1em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .input-textarea {
+            width: 100%;
+            height: 120px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 16px; /* 防止iOS自动缩放 */
+            line-height: 1.5;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+        }
+
+        .input-textarea:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 8px rgba(78, 205, 196, 0.3);
+        }
+
+        .demo-examples {
+            margin-top: 15px;
+        }
+
+        .demo-examples p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .example-btn {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            margin: 3px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background 0.3s ease;
+        }
+
+        .example-btn:active {
+            background: #5a4fcf;
+            transform: scale(0.98);
+        }
+
+        .analyze-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 250px;
+        }
+
+        .analyze-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .analyze-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px 15px;
+            color: #666;
+        }
+
+        .loading::after {
+            content: "⏳";
+            font-size: 2em;
+            animation: bounce 1.5s infinite;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+        .result-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .result-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .result-title::before {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        .result-title.translation::before { content: "📖"; }
+        .result-title.words::before { content: "📚"; }
+        .result-title.grammar::before { content: "🔍"; }
+
+        .translation-content {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .original-text {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 5px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .translated-text {
+            color: #333;
+            font-weight: 500;
+            padding: 10px;
+            background: #f0fff0;
+            border-radius: 5px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .word-analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .word-analysis {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .word-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-top: 3px solid #ff6b6b;
+        }
+
+        .word-title {
+            font-weight: bold;
+            color: #ff6b6b;
+            font-size: 1em;
+            margin-bottom: 6px;
+        }
+
+        .word-meaning {
+            color: #666;
+            line-height: 1.3;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 15px;
+            color: #999;
+            font-size: 0.8em;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+
+        /* 添加使用统计显示 */
+        .stats {
+            background: #e8f4f8;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.8em;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>老外法宝</h1>
+            <p>让英文文章阅读变得简单有趣</p>
+        </div>
+
+        <div class="main-content">
+            <div class="demo-notice">
+                <strong>📢 Demo演示版本</strong><br>
+                目前使用模拟数据展示功能效果。正式版将接入专业翻译API，提供更准确的翻译和词汇解析服务。
+            </div>
+
+            <div class="input-section">
+                <label class="input-label">📝 粘贴你想要解析的英文文章：</label>
+                <textarea 
+                    class="input-textarea" 
+                    id="inputText" 
+                    placeholder="在这里粘贴英文文章...
+
+示例：
+The rapid development of artificial intelligence has transformed many aspects of our daily lives."></textarea>
+
+                <div class="demo-examples">
+                    <p><strong>💡 快速体验，点击示例：</strong></p>
+                    <button class="example-btn" onclick="loadExample1()">科技文章</button>
+                    <button class="example-btn" onclick="loadExample2()">日常对话</button>
+                    <button class="example-btn" onclick="loadExample3()">新闻报道</button>
+                </div>
+            </div>
+
+            <button class="analyze-btn" id="analyzeBtn" onclick="analyzeText()">
+                🚀 开始智能解析
+            </button>
+
+            <div class="loading" id="loading">
+                正在智能分析文章，请稍候...
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <div class="result-card">
+                    <div class="result-title translation">中英对照翻译</div>
+                    <div class="translation-content">
+                        <div class="original-text" id="originalText"></div>
+                        <div class="translated-text" id="translatedText"></div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-title words">重点词汇解析</div>
+                    <div class="word-analysis" id="wordAnalysis"></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-title grammar">句型结构分析</div>
+                    <div class="translation-content" id="sentenceAnalysis"></div>
+                </div>
+            </div>
+
+            <div class="stats" id="stats" style="display: none;">
+                📊 今日已为 <span id="todayCount">0</span> 位用户提供解析服务
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💡 老外法宝 - 让英语学习更高效</p>
+            <p>如有建议或问题，欢迎通过公众号反馈</p>
+        </div>
+    </div>
+
+    <script>
+        // 示例文章数据
+        const examples = {
+            example1: "The rapid development of artificial intelligence has transformed many aspects of our daily lives. From smartphones that understand our voice commands to recommendation systems that suggest what we might like to watch or buy, AI is becoming increasingly integrated into our world.",
+            example2: "Hello! How are you doing today? I hope you're having a wonderful day. Would you like to grab some coffee later? I know this great little café downtown that serves amazing lattes.",
+            example3: "Breaking news: Scientists have discovered a new species of deep-sea fish in the Pacific Ocean. The discovery was made during a research expedition led by marine biologists from several international universities."
+        };
+
+        // 模拟翻译和解析数据
+        const analysisData = {
+            translations: {
+                [examples.example1]: "人工智能的快速发展已经改变了我们日常生活的许多方面。从能够理解我们语音命令的智能手机，到推荐我们可能喜欢观看或购买内容的推荐系统，AI正在越来越多地融入我们的世界。",
+                [examples.example2]: "你好！你今天过得怎么样？我希望你今天过得很棒。你想稍后去喝杯咖啡吗？我知道市中心有一家很棒的小咖啡馆，他们的拿铁很棒。",
+                [examples.example3]: "突发新闻：科学家们在太平洋发现了一种新的深海鱼类。这一发现是在由来自多个国际大学的海洋生物学家领导的研究探险中发现的。"
+            },
+            words: {
+                [examples.example1]: [
+                    { word: "artificial intelligence", meaning: "人工智能 - 计算机科学的一个分支，致力于创造能够执行通常需要人类智能的任务的系统" },
+                    { word: "transformed", meaning: "改变，转变 - 使某事物的形式、性质或功能发生显著变化" },
+                    { word: "recommendation", meaning: "推荐 - 建议某人采取特定行动或选择特定事物" },
+                    { word: "integrated", meaning: "整合的，一体化的 - 将不同部分合并成一个整体" }
+                ],
+                [examples.example2]: [
+                    { word: "wonderful", meaning: "精彩的，美好的 - 非常好的，令人愉快的" },
+                    { word: "grab", meaning: "抓住，获得 - 这里指'去拿'或'去喝'" },
+                    { word: "café", meaning: "咖啡馆 - 提供咖啡和轻食的小餐厅" },
+                    { word: "amazing", meaning: "令人惊叹的 - 非常好的，令人印象深刻的" }
+                ],
+                [examples.example3]: [
+                    { word: "species", meaning: "物种 - 生物分类学中的基本单位" },
+                    { word: "expedition", meaning: "探险，考察 - 为特定目的而进行的旅行" },
+                    { word: "marine biologists", meaning: "海洋生物学家 - 研究海洋生物的科学家" },
+                    { word: "international", meaning: "国际的 - 涉及两个或多个国家的" }
+                ]
+            },
+            sentences: {
+                [examples.example1]: "这段文字使用了现在完成时态 (has transformed)，展现了AI对现在的影响。句子结构包含了from...to...的并列结构，用于举例说明AI的应用领域。被动语态和现在进行时的使用体现了技术发展的持续性。",
+                [examples.example2]: "这是典型的日常对话英语，使用了疑问句、感叹句和陈述句的组合。Would you like to...? 是礼貌的邀请句型。I know this great...是推荐句式的常见表达。",
+                [examples.example3]: "新闻报道的典型句式，使用了被动语态 (was made)，强调动作的结果而非执行者。Breaking news开头是新闻报道的标准格式，过去分词短语作定语修饰expedition。"
+            }
+        };
+
+        function loadExample1() {
+            document.getElementById('inputText').value = examples.example1;
+        }
+
+        function loadExample2() {
+            document.getElementById('inputText').value = examples.example2;
+        }
+
+        function loadExample3() {
+            document.getElementById('inputText').value = examples.example3;
+        }
+
+        function analyzeText() {
+            const inputText = document.getElementById('inputText').value.trim();
+            
+            if (!inputText) {
+                alert('请先输入或选择一段英文文章！');
+                return;
+            }
+
+            // 显示加载状态
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analyzeBtn').textContent = '🔄 解析中...';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'none';
+
+            // 模拟API调用延迟
+            setTimeout(() => {
+                displayResults(inputText);
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('analyzeBtn').innerHTML = '🚀 开始智能解析';
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('resultSection').style.display = 'block';
+                
+                // 更新使用统计
+                updateStats();
+                
+                // 滚动到结果区域
+                document.getElementById('resultSection').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 2000);
+        }
+
+        function displayResults(inputText) {
+            // 显示原文和翻译
+            document.getElementById('originalText').innerHTML = `<strong>📖 英文原文：</strong><br>${inputText}`;
+            
+            // 获取翻译
+            let translation = analysisData.translations[inputText] || "这里是文章的中文翻译。在正式版本中，我们将使用专业的翻译API为您提供准确的翻译结果。";
+            document.getElementById('translatedText').innerHTML = `<strong>🇨🇳 中文翻译：</strong><br>${translation}`;
+
+            // 显示词汇解析
+            let words = analysisData.words[inputText] || [
+                { word: "key vocabulary", meaning: "关键词汇 - 文章中的重要单词和短语" },
+                { word: "analysis", meaning: "分析 - 详细检查某事物的构成或结构" },
+                { word: "understanding", meaning: "理解 - 对某事物的认知和把握" },
+                { word: "learning", meaning: "学习 - 获取知识或技能的过程" }
+            ];
+
+            let wordHtml = '';
+            words.forEach(wordObj => {
+                wordHtml += `
+                    <div class="word-card">
+                        <div class="word-title">${wordObj.word}</div>
+                        <div class="word-meaning">${wordObj.meaning}</div>
+                    </div>
+                `;
+            });
+            document.getElementById('wordAnalysis').innerHTML = wordHtml;
+
+            // 显示句型分析
+            let sentenceAnalysis = analysisData.sentences[inputText] || "这段文字包含了多种英语句型结构。在正式版本中，我们将为您提供详细的语法分析，包括时态、语态、从句结构等详细解释，帮助您更好地理解英语语法规则。";
+            document.getElementById('sentenceAnalysis').innerHTML = sentenceAnalysis;
+        }
+
+        function updateStats() {
+            // 简单的使用统计
+            let todayCount = parseInt(localStorage.getItem('todayUsage') || '0');
+            todayCount += 1;
+            localStorage.setItem('todayUsage', todayCount.toString());
+            
+            document.getElementById('todayCount').textContent = todayCount;
+            document.getElementById('stats').style.display = 'block';
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 自动加载第一个示例
+            loadExample1();
+            
+            // 显示今日统计
+            const todayCount = parseInt(localStorage.getItem('todayUsage') || '0');
+            if (todayCount > 0) {
+                document.getElementById('todayCount').textContent = todayCount;
+                document.getElementById('stats').style.display = 'block';
+            }
+            
+            // 添加回车键快捷分析（移动端较少用到）
+            document.getElementById('inputText').addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    analyzeText();
+                }
+            });
+        });
+
+        // 防止页面缩放
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
