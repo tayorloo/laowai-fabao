@@ -1,0 +1,38 @@
+[
+  {
+    "id": "visa_tourist_l",
+    "title_en": "Tourist Visa (L)",
+    "title_zh": "旅游签证（L）",
+    "body_en": "Tourist visa requirements vary by nationality. Typically requires return ticket and hotel bookings.",
+    "body_zh": "旅游签证要求因国籍而异，通常需要往返机票和酒店预订。",
+    "type": "visa",
+    "country": "CN",
+    "tags": ["visa", "tourist"],
+    "official_url": "https://www.fmprc.gov.cn/",
+    "last_updated": 1704067200000
+  },
+  {
+    "id": "residence_permit",
+    "title_en": "Residence Permit Basics",
+    "title_zh": "居留许可基础",
+    "body_en": "Residence permits are issued for work, study, family reunion and must be applied within 30 days of entry.",
+    "body_zh": "居留许可适用于工作、学习、家庭团聚，入境后30日内申请。",
+    "type": "residence",
+    "country": "CN",
+    "tags": ["residence", "permit"],
+    "official_url": "https://en.nia.gov.cn/",
+    "last_updated": 1704067200000
+  },
+  {
+    "id": "prohibited_items",
+    "title_en": "Prohibited and Restricted Items",
+    "title_zh": "禁止和限制物品",
+    "body_en": "Certain items are prohibited or restricted by customs. Check the official customs list before travel.",
+    "body_zh": "部分物品被海关禁止或限制，请在出行前查阅官方清单。",
+    "type": "customs",
+    "country": "CN",
+    "tags": ["customs", "prohibited"],
+    "official_url": "https://english.customs.gov.cn/",
+    "last_updated": 1704067200000
+  }
+]

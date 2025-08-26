@@ -1,0 +1,26 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() { return request.auth != null; }
+
+    match /audio/lessons/{lessonId}/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /audio/user_practice/{userId}/{fileName} {
+      allow write: if isSignedIn() && request.auth.uid == userId;
+      allow read: if false;
+    }
+
+    match /media/attractions/{id}/{fileName} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /feedback/{feedbackId}/attachments/{fileName} {
+      allow write: if isSignedIn();
+      allow read: if false;
+    }
+  }
+}

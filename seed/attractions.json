@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tiananmen",
+    "city_id": "beijing",
+    "name_en": "Tiananmen Square",
+    "name_zh": "天安门广场",
+    "description_en": "Iconic central square in Beijing.",
+    "description_zh": "北京中心的标志性广场。",
+    "lat": 39.9087,
+    "lng": 116.3975,
+    "category": "landmark",
+    "images": []
+  },
+  {
+    "id": "great_wall_badaling",
+    "city_id": "beijing",
+    "name_en": "Great Wall (Badaling)",
+    "name_zh": "长城（八达岭）",
+    "description_en": "Most visited Great Wall section.",
+    "description_zh": "游客最多的长城段。",
+    "lat": 40.3652,
+    "lng": 116.0204,
+    "category": "landmark",
+    "images": []
+  },
+  {
+    "id": "the_bund",
+    "city_id": "shanghai",
+    "name_en": "The Bund",
+    "name_zh": "外滩",
+    "description_en": "Historic waterfront with skyline views.",
+    "description_zh": "历史滨江景观，观赏天际线的好去处。",
+    "lat": 31.2400,
+    "lng": 121.4900,
+    "category": "scenic",
+    "images": []
+  },
+  {
+    "id": "yu_garden",
+    "city_id": "shanghai",
+    "name_en": "Yu Garden",
+    "name_zh": "豫园",
+    "description_en": "Classical garden with pavilions and ponds.",
+    "description_zh": "古典园林，亭台楼阁与池塘相映成趣。",
+    "lat": 31.2272,
+    "lng": 121.4920,
+    "category": "garden",
+    "images": []
+  }
+]
