@@ -1,0 +1,24 @@
+[
+  {
+    "id": "beijing",
+    "name_en": "Beijing",
+    "name_zh": "北京",
+    "province": "Beijing",
+    "description_en": "Capital city with historical sites like the Forbidden City and Great Wall.",
+    "description_zh": "中国首都，拥有故宫、长城等著名景点。",
+    "lat": 39.9042,
+    "lng": 116.4074,
+    "attractions": ["tiananmen", "great_wall_badaling"]
+  },
+  {
+    "id": "shanghai",
+    "name_en": "Shanghai",
+    "name_zh": "上海",
+    "province": "Shanghai",
+    "description_en": "Modern metropolis with the Bund and vibrant food scene.",
+    "description_zh": "现代化都市，外滩与丰富的美食文化。",
+    "lat": 31.2304,
+    "lng": 121.4737,
+    "attractions": ["the_bund", "yu_garden"]
+  }
+]

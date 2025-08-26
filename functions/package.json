@@ -1,0 +1,29 @@
+{
+  "name": "laowai-fabao-functions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Firebase Cloud Functions for Laowai Fabao (Expat-Legal-Buddy)",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "clean": "rm -rf lib",
+    "lint": "echo 'No linter configured'",
+    "start": "node lib/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/node": "^18.19.50",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

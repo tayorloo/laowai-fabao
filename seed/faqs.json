@@ -1,0 +1,22 @@
+[
+  {
+    "id": "faq_visa_extend",
+    "question_en": "How to extend a tourist visa in China?",
+    "question_zh": "如何在中国延长旅游签证？",
+    "answer_en": "Visit the local Exit-Entry Administration with your passport, application form, photo, and supporting documents. Extensions are not guaranteed.",
+    "answer_zh": "携带护照、申请表、照片及相关材料前往当地出入境管理部门。是否获批以实际为准。",
+    "tags": ["visa", "tourist"],
+    "keywords": ["extend", "tourist visa", "exit-entry"],
+    "last_updated": 1704067200000
+  },
+  {
+    "id": "faq_emergency",
+    "question_en": "What is the emergency number in China?",
+    "question_zh": "中国的报警电话是多少？",
+    "answer_en": "Police: 110, Ambulance: 120, Fire: 119. International SOS and embassies can also help.",
+    "answer_zh": "报警：110，急救：120，火警：119。可联系国际SOS或使馆协助。",
+    "tags": ["emergency", "contacts"],
+    "keywords": ["emergency", "police", "ambulance", "fire"],
+    "last_updated": 1704067200000
+  }
+]

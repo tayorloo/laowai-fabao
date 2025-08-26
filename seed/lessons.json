@@ -1,0 +1,28 @@
+[
+  {
+    "id": "word_nihao",
+    "type": "word",
+    "level": 1,
+    "text_en": "hello",
+    "text_zh": "你好",
+    "pinyin": "nǐ hǎo",
+    "audio_storage_path": "audio/lessons/word_nihao/standard.mp3",
+    "tags": ["greeting"],
+    "examples": [
+      { "en": "Hello!", "zh": "你好！" }
+    ]
+  },
+  {
+    "id": "sentence_order_food",
+    "type": "sentence",
+    "level": 1,
+    "text_en": "I would like to order this dish.",
+    "text_zh": "我想点这个菜。",
+    "pinyin": "wǒ xiǎng diǎn zhège cài.",
+    "audio_storage_path": "audio/lessons/sentence_order_food/standard.mp3",
+    "tags": ["restaurant"],
+    "examples": [
+      { "en": "Please give me a menu.", "zh": "请给我菜单。" }
+    ]
+  }
+]

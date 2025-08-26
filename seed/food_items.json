@@ -1,0 +1,27 @@
+[
+  {
+    "id": "hotpot",
+    "name_en": "Hotpot",
+    "name_zh": "火锅",
+    "pinyin": "huǒguō",
+    "description_en": "A communal meal where diners cook ingredients in a boiling pot.",
+    "description_zh": "将食材涮入沸腾的锅中，具有社交性的就餐方式。",
+    "tags": ["spicy", "sichuan"],
+    "images": [],
+    "menu_translations": [
+      { "en": "beef slices", "zh": "牛肉片" },
+      { "en": "lotus root", "zh": "藕片" }
+    ]
+  },
+  {
+    "id": "green_tea",
+    "name_en": "Green Tea",
+    "name_zh": "绿茶",
+    "pinyin": "lǜchá",
+    "description_en": "Light and refreshing tea, often served without milk or sugar.",
+    "description_zh": "清新爽口的茶，通常不加奶或糖。",
+    "tags": ["tea"],
+    "images": [],
+    "menu_translations": []
+  }
+]
